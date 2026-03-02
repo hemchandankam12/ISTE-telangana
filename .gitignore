@@ -1,0 +1,6 @@
+node_modules/
+.env
+uploads/events/*
+uploads/notices/*
+!uploads/events/.gitkeep
+!uploads/notices/.gitkeep

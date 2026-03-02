@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice Form | ISTE Admin</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #FF6B35;
+            --bg-light: #F5F7FA;
+            --text-primary: #1A1A2E;
+            --text-secondary: #666;
+            --sidebar-w: 250px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: var(--sidebar-w);
+            background: var(--primary);
+            color: white;
+            padding: 20px 0;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo .icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .sidebar-logo span {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-nav a.active {
+            border-left: 3px solid var(--secondary);
+        }
+
+        .sidebar-nav a span {
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: var(--sidebar-w);
+            padding: 30px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .top-bar h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            max-width: 700px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .pdf-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: #e9ecef;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-top: 8px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .msg {
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .msg-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .msg-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                overflow-x: auto;
+                padding: 10px;
+            }
+
+            .sidebar-nav a {
+                white-space: nowrap;
+                padding: 8px 15px;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <div class="icon">ISTE</div><span>Admin Panel</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard"><span>📊</span> Dashboard</a>
+            <a href="/events"><span>📅</span> Events</a>
+            <a href="/notices" class="active"><span>📋</span> Notices</a>
+        </nav>
+    </div>
+    <div class="main">
+        <div class="top-bar">
+            <h1 id="pageTitle">Add Notice</h1>
+            <div style="display:flex;gap:10px;align-items:center;">
+                <a href="/notices" class="btn btn-secondary">← Back</a>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+        <div class="form-card">
+            <div class="msg msg-success" id="successMsg"></div>
+            <div class="msg msg-error" id="errorMsg"></div>
+            <form id="noticeForm">
+                <div class="form-group">
+                    <label>Title *</label>
+                    <input type="text" id="title" required placeholder="Notice title">
+                </div>
+                <div class="form-group">
+                    <label>Description *</label>
+                    <textarea id="description" required placeholder="Notice content / description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Publish Date</label>
+                    <input type="date" id="publishDate">
+                </div>
+                <div class="form-group">
+                    <label>PDF Attachment (optional)</label>
+                    <input type="file" id="pdf" accept="application/pdf">
+                    <div id="pdfPreview"></div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="submitBtn">Create Notice</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        let editId = null;
+        const pathParts = window.location.pathname.split('/');
+        if (pathParts.includes('edit') && pathParts.length > 3) {
+            editId = pathParts[pathParts.length - 1];
+        }
+
+        async function loadNotice() {
+            if (!editId) return;
+            document.getElementById('pageTitle').textContent = 'Edit Notice';
+            document.getElementById('submitBtn').textContent = 'Update Notice';
+            try {
+                const res = await fetch('/api/notices/' + editId);
+                if (res.status === 401) { window.location.href = '/login'; return; }
+                const n = await res.json();
+                document.getElementById('title').value = n.title;
+                document.getElementById('description').value = n.description;
+                document.getElementById('publishDate').value = n.publishDate ? n.publishDate.split('T')[0] : '';
+                if (n.pdfPath) {
+                    document.getElementById('pdfPreview').innerHTML = `<a href="${n.pdfPath}" target="_blank" class="pdf-link">📄 Current PDF</a>`;
+                }
+            } catch (err) { console.error('Error loading notice:', err); }
+        }
+
+        document.getElementById('noticeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const successMsg = document.getElementById('successMsg');
+            const errorMsg = document.getElementById('errorMsg');
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('publishDate', document.getElementById('publishDate').value || new Date().toISOString().split('T')[0]);
+
+            const pdfFile = document.getElementById('pdf').files[0];
+            if (pdfFile) formData.append('pdf', pdfFile);
+
+            try {
+                const url = editId ? '/api/notices/' + editId : '/api/notices';
+                const method = editId ? 'PUT' : 'POST';
+                const res = await fetch(url, { method, body: formData });
+                const data = await res.json();
+                if (res.ok) {
+                    successMsg.textContent = editId ? 'Notice updated!' : 'Notice created!';
+                    successMsg.style.display = 'block';
+                    if (!editId) setTimeout(() => window.location.href = '/notices', 1000);
+                } else {
+                    errorMsg.textContent = data.error || 'Failed to save';
+                    errorMsg.style.display = 'block';
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Connection error';
+                errorMsg.style.display = 'block';
+            }
+        });
+
+        async function logout() { await fetch('/auth/logout', { method: 'POST' }); window.location.href = '/login'; }
+        loadNotice();
+    </script>
+</body>
+
+</html>

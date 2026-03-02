@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Form | ISTE Admin</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #FF6B35;
+            --bg-light: #F5F7FA;
+            --text-primary: #1A1A2E;
+            --text-secondary: #666;
+            --sidebar-w: 250px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-primary);
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: var(--sidebar-w);
+            background: var(--primary);
+            color: white;
+            padding: 20px 0;
+            z-index: 100;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo .icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .sidebar-logo span {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-nav a.active {
+            border-left: 3px solid var(--secondary);
+        }
+
+        .sidebar-nav a span {
+            font-size: 18px;
+        }
+
+        .main {
+            margin-left: var(--sidebar-w);
+            padding: 30px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .top-bar h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--primary);
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e55a2b;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            font-size: 11px;
+            padding: 4px 8px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .logout-btn {
+            padding: 8px 20px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        .image-preview {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .image-preview .img-item {
+            position: relative;
+            width: 100px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .image-preview .img-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview .img-item .delete-img {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .msg {
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .msg-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .msg-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .sidebar-nav {
+                display: flex;
+                overflow-x: auto;
+                padding: 10px;
+            }
+
+            .sidebar-nav a {
+                white-space: nowrap;
+                padding: 8px 15px;
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <div class="icon">ISTE</div><span>Admin Panel</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/dashboard"><span>📊</span> Dashboard</a>
+            <a href="/events" class="active"><span>📅</span> Events</a>
+            <a href="/notices"><span>📋</span> Notices</a>
+        </nav>
+    </div>
+    <div class="main">
+        <div class="top-bar">
+            <h1 id="pageTitle">Add Event</h1>
+            <div style="display:flex;gap:10px;align-items:center;">
+                <a href="/events" class="btn btn-secondary">← Back</a>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </div>
+        <div class="form-card">
+            <div class="msg msg-success" id="successMsg"></div>
+            <div class="msg msg-error" id="errorMsg"></div>
+            <form id="eventForm" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Title *</label>
+                    <input type="text" id="title" required placeholder="Event title">
+                </div>
+                <div class="form-group">
+                    <label>Description *</label>
+                    <textarea id="description" required placeholder="Event description"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Event Date *</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Location *</label>
+                        <input type="text" id="location" required placeholder="Event location">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select id="category">
+                            <option value="Event">Event</option>
+                            <option value="Conference">Conference</option>
+                            <option value="Workshop">Workshop</option>
+                            <option value="Seminar">Seminar</option>
+                            <option value="Competition">Competition</option>
+                            <option value="Hackathon">Hackathon</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>&nbsp;</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="isUpcoming" checked>
+                            <label for="isUpcoming" style="margin:0;font-weight:400;">Mark as Upcoming</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Cover Image</label>
+                    <input type="file" id="coverImage" accept="image/jpeg,image/png,image/webp">
+                    <div id="coverPreview" class="image-preview"></div>
+                </div>
+                <div class="form-group">
+                    <label>Gallery Images (multiple)</label>
+                    <input type="file" id="images" accept="image/jpeg,image/png,image/webp" multiple>
+                    <div id="galleryPreview" class="image-preview"></div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="submitBtn">Create Event</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        let editId = null;
+        const pathParts = window.location.pathname.split('/');
+        if (pathParts.includes('edit') && pathParts.length > 3) {
+            editId = pathParts[pathParts.length - 1];
+        }
+
+        async function loadEvent() {
+            if (!editId) return;
+            document.getElementById('pageTitle').textContent = 'Edit Event';
+            document.getElementById('submitBtn').textContent = 'Update Event';
+            try {
+                const res = await fetch('/api/events/' + editId);
+                if (res.status === 401) { window.location.href = '/login'; return; }
+                const ev = await res.json();
+                document.getElementById('title').value = ev.title;
+                document.getElementById('description').value = ev.description;
+                document.getElementById('eventDate').value = ev.eventDate ? ev.eventDate.split('T')[0] : '';
+                document.getElementById('location').value = ev.location;
+                document.getElementById('category').value = ev.category || 'Event';
+                document.getElementById('isUpcoming').checked = ev.isUpcoming;
+                if (ev.coverImage) {
+                    document.getElementById('coverPreview').innerHTML = `<div class="img-item"><img src="${ev.coverImage}" alt="cover"></div>`;
+                }
+                if (ev.images && ev.images.length > 0) {
+                    document.getElementById('galleryPreview').innerHTML = ev.images.map((img, i) =>
+                        `<div class="img-item"><img src="${img}" alt=""><button class="delete-img" onclick="deleteImage(${i})" title="Delete">×</button></div>`
+                    ).join('');
+                }
+            } catch (err) { console.error('Error loading event:', err); }
+        }
+
+        async function deleteImage(index) {
+            if (!confirm('Delete this image?')) return;
+            try {
+                const res = await fetch(`/api/events/${editId}/images/${index}`, { method: 'DELETE' });
+                if (res.ok) loadEvent();
+                else alert('Failed to delete image');
+            } catch (err) { alert('Error deleting image'); }
+        }
+
+        document.getElementById('eventForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const successMsg = document.getElementById('successMsg');
+            const errorMsg = document.getElementById('errorMsg');
+            successMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
+
+            const formData = new FormData();
+            formData.append('title', document.getElementById('title').value);
+            formData.append('description', document.getElementById('description').value);
+            formData.append('eventDate', document.getElementById('eventDate').value);
+            formData.append('location', document.getElementById('location').value);
+            formData.append('category', document.getElementById('category').value);
+            formData.append('isUpcoming', document.getElementById('isUpcoming').checked);
+
+            const coverFile = document.getElementById('coverImage').files[0];
+            if (coverFile) formData.append('coverImage', coverFile);
+
+            const imageFiles = document.getElementById('images').files;
+            for (let i = 0; i < imageFiles.length; i++) {
+                formData.append('images', imageFiles[i]);
+            }
+
+            try {
+                const url = editId ? '/api/events/' + editId : '/api/events';
+                const method = editId ? 'PUT' : 'POST';
+                const res = await fetch(url, { method, body: formData });
+                const data = await res.json();
+                if (res.ok) {
+                    successMsg.textContent = editId ? 'Event updated successfully!' : 'Event created successfully!';
+                    successMsg.style.display = 'block';
+                    if (!editId) {
+                        setTimeout(() => window.location.href = '/events', 1000);
+                    } else {
+                        loadEvent();
+                    }
+                } else {
+                    errorMsg.textContent = data.error || 'Failed to save event';
+                    errorMsg.style.display = 'block';
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Connection error';
+                errorMsg.style.display = 'block';
+            }
+        });
+
+        async function logout() { await fetch('/auth/logout', { method: 'POST' }); window.location.href = '/login'; }
+        loadEvent();
+    </script>
+</body>
+
+</html>

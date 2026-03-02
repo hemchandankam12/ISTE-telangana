@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery Album | ISTE Telangana</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #FF6B35;
+            --bg-white: #FFF;
+            --bg-light: #F5F7FA;
+            --text-primary: #1A1A2E;
+            --text-secondary: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: var(--text-primary);
+        }
+
+        h1,
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .notification-bar {
+            background: linear-gradient(90deg, var(--primary), #004080);
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .notification-track {
+            display: flex;
+            width: fit-content;
+            animation: scroll 30s linear infinite;
+        }
+
+        .notification-item {
+            color: white;
+            white-space: nowrap;
+            padding: 0 50px;
+            font-size: 14px;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0)
+            }
+
+            100% {
+                transform: translateX(-50%)
+            }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-white);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, .1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--secondary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #001a33 100%);
+            padding: 130px 0 50px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+        }
+
+        .page-header p {
+            margin-top: 8px;
+            opacity: .8;
+            font-size: 16px;
+        }
+
+        .breadcrumb {
+            padding: 15px 0;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb a {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        section {
+            padding: 40px 0;
+        }
+
+        .album-info {
+            margin-bottom: 30px;
+        }
+
+        .album-info h2 {
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .album-info .meta {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .album-info .meta span {
+            background: #e8f0fc;
+            color: var(--primary);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .images-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .img-card {
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all .3s;
+            aspect-ratio: 4/3;
+        }
+
+        .img-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .3s;
+        }
+
+        .img-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 36px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .lightbox .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            background: rgba(255, 255, 255, .1);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox .nav-btn.prev {
+            left: 20px;
+        }
+
+        .lightbox .nav-btn.next {
+            right: 20px;
+        }
+
+        .lightbox .counter {
+            color: white;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state span {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            background: #0a0a0a;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .footer-links h4 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, .1);
+            padding-top: 15px;
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+        }
+
+        @media(max-width:1024px) {
+            .images-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width:768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 15px;
+                gap: 12px;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .images-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/dark-theme.css">
+</head>
+
+<body>
+    <div class="notification-bar">
+        <div class="notification-track" id="notificationTrack"></div>
+    </div>
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">ISTE</div>
+                    <div class="logo-text">Telangana<span>.</span></div>
+                </a>
+                <nav>
+                    <ul id="nav-menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="committee.html">Committee</a></li>
+                        <li><a href="awards.html">Awards</a></li>
+                        <li><a href="gallery.html" class="active">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-toggle" id="mobile-toggle"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </header>
+    <section class="page-header">
+        <div class="container">
+            <h1 id="album-title">Gallery Album</h1>
+            <p id="album-category"></p>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="gallery.html">← Back to Gallery</a>
+            </div>
+            <div class="album-info" id="album-info"></div>
+            <div class="images-grid" id="images-grid">
+                <div class="empty-state"><span>⏳</span>
+                    <p>Loading images...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="close" onclick="closeLightbox()">×</button>
+        <button class="nav-btn prev" onclick="navigateLB(-1)">‹</button>
+        <img id="lb-img" src="" alt="">
+        <button class="nav-btn next" onclick="navigateLB(1)">›</button>
+        <div class="counter" id="lb-counter"></div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="events.html">Events</a></li>
+                        <li><a href="committee.html">Committee</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>More</h4>
+                    <ul>
+                        <li><a href="awards.html">Awards</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:istetelangana@gmail.com">Email</a></li>
+                        <li><a href="tel:+919876543210">+91 98765 43210</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 ISTE Telangana. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('mobile-toggle').addEventListener('click', () => {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+
+        let allImages = [];
+        let currentLBIndex = 0;
+
+        async function loadAlbum() {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if (!id) { document.getElementById('images-grid').innerHTML = '<div class="empty-state"><span>❌</span><p>Album not found</p></div>'; return; }
+            try {
+                const r = await fetch('/api/public/gallery/' + id);
+                if (!r.ok) throw new Error();
+                const album = await r.json();
+                document.getElementById('album-title').textContent = album.title;
+                document.getElementById('album-category').textContent = album.category || '';
+                document.getElementById('album-info').innerHTML = `<h2>${album.title}</h2><div class="meta">${(album.images || []).length} Photos<span>${album.category || 'General'}</span></div>`;
+                allImages = album.images || [];
+                if (allImages.length > 0) {
+                    document.getElementById('images-grid').innerHTML = allImages.map((img, i) =>
+                        `<div class="img-card" onclick="openLightbox(${i})"><img src="${img}" alt="Photo ${i + 1}" loading="lazy"></div>`
+                    ).join('');
+                } else {
+                    document.getElementById('images-grid').innerHTML = '<div class="empty-state"><span>📷</span><p>No photos in this album yet</p></div>';
+                }
+            } catch (e) {
+                document.getElementById('images-grid').innerHTML = '<div class="empty-state"><span>❌</span><p>Could not load album</p></div>';
+            }
+        }
+
+        function openLightbox(idx) {
+            currentLBIndex = idx;
+            document.getElementById('lb-img').src = allImages[idx];
+            document.getElementById('lb-counter').textContent = (idx + 1) + ' / ' + allImages.length;
+            document.getElementById('lightbox').classList.add('active');
+        }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+        function navigateLB(dir) {
+            currentLBIndex = (currentLBIndex + dir + allImages.length) % allImages.length;
+            document.getElementById('lb-img').src = allImages[currentLBIndex];
+            document.getElementById('lb-counter').textContent = (currentLBIndex + 1) + ' / ' + allImages.length;
+        }
+        document.getElementById('lightbox').addEventListener('click', (e) => { if (e.target.id === 'lightbox') closeLightbox(); });
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLB(-1);
+            if (e.key === 'ArrowRight') navigateLB(1);
+        });
+
+        loadAlbum();
+    </script>
+    <script src="/js/dynamic.js"></script>
+</body>
+
+</html>

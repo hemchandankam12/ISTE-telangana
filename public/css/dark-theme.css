@@ -1,0 +1,698 @@
+/* ISTE Telangana - Dark Theme Override */
+/* This file overrides all light-mode CSS variables and selectors */
+
+:root {
+    --primary: #58a6ff !important;
+    --secondary: #f0883e !important;
+    --bg-white: #0d1117 !important;
+    --bg-light: #161b22 !important;
+    --text-primary: #e6edf3 !important;
+    --text-secondary: #8b949e !important;
+}
+
+body {
+    background: #0d1117 !important;
+    color: #e6edf3 !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+header {
+    background: #010409 !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid #30363d !important;
+}
+
+.logo-icon {
+    background: #003366 !important;
+}
+
+.logo-text {
+    color: #e6edf3 !important;
+}
+
+nav a {
+    color: #c9d1d9 !important;
+}
+
+nav a:hover,
+nav a.active {
+    color: #f0883e !important;
+}
+
+/* Mobile menu */
+nav ul {
+    background: #0d1117 !important;
+    border: 1px solid #30363d !important;
+}
+
+.mobile-toggle span {
+    background: #e6edf3 !important;
+}
+
+/* Notification Bar */
+.notification-bar {
+    background: linear-gradient(90deg, #0d1117, #161b22) !important;
+    border-bottom: 1px solid #30363d !important;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, rgba(0, 51, 102, 0.4) 0%, rgba(0, 26, 51, 0.5) 100%), url('/images/charminar-hero.png') center/cover no-repeat !important;
+}
+
+/* Sections */
+section {
+    background: #0d1117;
+}
+
+.section-header h2 {
+    color: #58a6ff !important;
+}
+
+.section-header p {
+    color: #8b949e !important;
+}
+
+/* Page Header (subpages) */
+.page-header {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 100%) !important;
+    border-bottom: 1px solid #30363d;
+}
+
+/* Event Cards */
+.event-card {
+    background: #161b22 !important;
+    box-shadow: none !important;
+    border: 1px solid #30363d;
+}
+
+.event-card:hover {
+    border-color: #58a6ff;
+}
+
+.event-category {
+    background: rgba(88, 166, 255, 0.1) !important;
+    color: #58a6ff !important;
+}
+
+.event-content h3 {
+    color: #e6edf3 !important;
+}
+
+.event-content p {
+    color: #8b949e !important;
+}
+
+.event-meta {
+    color: #8b949e !important;
+}
+
+.event-image {
+    background: linear-gradient(135deg, #1a2332, #0d1117) !important;
+}
+
+/* Committee Cards */
+.committee-card {
+    background: #161b22 !important;
+    box-shadow: none !important;
+    border: 1px solid #30363d;
+}
+
+.committee-card:hover {
+    border-color: #58a6ff;
+}
+
+.committee-image {
+    background: linear-gradient(135deg, #1a2332, #21262d) !important;
+    color: #484f58 !important;
+}
+
+.committee-info h3 {
+    color: #e6edf3 !important;
+}
+
+.committee-role {
+    color: #f0883e !important;
+}
+
+.committee-org {
+    color: #8b949e !important;
+}
+
+/* Award Cards */
+.award-card {
+    background: #161b22 !important;
+    box-shadow: none !important;
+    border: 1px solid #30363d;
+}
+
+.award-card:hover {
+    border-color: #58a6ff;
+}
+
+.award-icon {
+    background: linear-gradient(135deg, #1a2332, #0d1117) !important;
+}
+
+.award-content h3 {
+    color: #e6edf3 !important;
+}
+
+.award-content p {
+    color: #8b949e !important;
+}
+
+.award-year {
+    color: #f0883e !important;
+}
+
+.award-pdf-badge {
+    background: rgba(88, 166, 255, 0.15) !important;
+    color: #58a6ff !important;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    margin-left: 8px;
+}
+
+/* Gallery */
+.gallery-grid {
+    gap: 15px;
+}
+
+.gallery-item {
+    background: #161b22 !important;
+    border: 1px solid #30363d !important;
+}
+
+.gallery-item:hover {
+    border-color: #58a6ff !important;
+}
+
+/* Contact Page */
+.contact-form {
+    background: #161b22 !important;
+    border: 1px solid #30363d;
+}
+
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+    background: #0d1117 !important;
+    border: 1px solid #30363d !important;
+    color: #e6edf3 !important;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+    border-color: #58a6ff !important;
+}
+
+.contact-form label {
+    color: #c9d1d9 !important;
+}
+
+.contact-info,
+.contact-card {
+    background: #161b22 !important;
+    border: 1px solid #30363d;
+    color: #e6edf3 !important;
+}
+
+/* About Page */
+.about-card,
+.mission-card,
+.value-card,
+.stat-card,
+.timeline-item {
+    background: #161b22 !important;
+    box-shadow: none !important;
+    border: 1px solid #30363d;
+    color: #e6edf3 !important;
+}
+
+.about-card h3,
+.mission-card h3,
+.value-card h3 {
+    color: #e6edf3 !important;
+}
+
+.about-card p,
+.mission-card p,
+.value-card p {
+    color: #8b949e !important;
+}
+
+/* Membership Page */
+.membership-card,
+.benefit-card,
+.plan-card {
+    background: #161b22 !important;
+    box-shadow: none !important;
+    border: 1px solid #30363d;
+}
+
+.membership-card h3,
+.benefit-card h3,
+.plan-card h3 {
+    color: #e6edf3 !important;
+}
+
+.membership-card p,
+.benefit-card p,
+.plan-card p {
+    color: #8b949e !important;
+}
+
+/* Documents, Notices */
+.document-card,
+.notice-card {
+    background: #161b22 !important;
+    box-shadow: none !important;
+    border: 1px solid #30363d;
+}
+
+.document-card h3,
+.notice-card h3 {
+    color: #e6edf3 !important;
+}
+
+.document-card p,
+.notice-card p {
+    color: #8b949e !important;
+}
+
+/* Event Detail */
+.event-detail {
+    color: #e6edf3;
+}
+
+.event-cover {
+    background: linear-gradient(135deg, #1a2332, #0d1117) !important;
+}
+
+.event-info-item {
+    color: #8b949e !important;
+}
+
+.event-description {
+    color: #8b949e !important;
+}
+
+.event-description h2 {
+    color: #58a6ff !important;
+}
+
+.back-link {
+    color: #f0883e !important;
+}
+
+.loading {
+    color: #8b949e !important;
+}
+
+/* Gallery Detail */
+.image-grid img {
+    border: 1px solid #30363d;
+}
+
+.image-grid img:hover {
+    border-color: #58a6ff;
+}
+
+/* Lightbox */
+.lightbox {
+    background: rgba(0, 0, 0, 0.95) !important;
+}
+
+/* Footer */
+footer {
+    background: #010409 !important;
+    border-top: 1px solid #30363d;
+}
+
+.footer-about p {
+    color: #8b949e !important;
+}
+
+.footer-links a {
+    color: #8b949e !important;
+}
+
+.footer-links a:hover {
+    color: #f0883e !important;
+}
+
+.footer-links h4 {
+    color: #e6edf3 !important;
+}
+
+.footer-bottom {
+    border-top-color: #30363d !important;
+    color: #484f58 !important;
+}
+
+.footer-social a {
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.footer-social a:hover {
+    background: #f0883e !important;
+}
+
+/* Buttons */
+.btn-primary {
+    background: #f0883e !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background: #d87832 !important;
+}
+
+.btn-outline {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+}
+
+.btn-outline:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+}
+
+/* Empty msgs */
+.empty-msg {
+    color: #8b949e !important;
+}
+
+/* General link colors */
+a {
+    color: #58a6ff;
+}
+
+/* Scroll thumb */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0d1117;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #484f58;
+}
+
+/* Selection */
+::selection {
+    background: rgba(88, 166, 255, 0.3);
+    color: #e6edf3;
+}
+
+/* ===== SUBPAGE SPECIFIC OVERRIDES ===== */
+
+/* Notices Page */
+.notices-list {
+    background: transparent !important;
+}
+
+.notice-card {
+    background: #161b22 !important;
+    box-shadow: none !important;
+    border: 1px solid #30363d !important;
+    border-radius: 12px;
+    color: #e6edf3 !important;
+}
+
+.notice-card:hover {
+    border-color: #58a6ff !important;
+}
+
+.notice-card h3 {
+    color: #e6edf3 !important;
+}
+
+.notice-card p {
+    color: #8b949e !important;
+}
+
+.notice-meta {
+    color: #8b949e !important;
+}
+
+.notice-meta span {
+    color: #8b949e !important;
+}
+
+.notice-pdf {
+    color: #f0883e !important;
+}
+
+/* Notice Detail Page */
+.notice-detail {
+    background: #161b22 !important;
+    border: 1px solid #30363d !important;
+    border-radius: 12px;
+    color: #e6edf3 !important;
+}
+
+.notice-body {
+    color: #c9d1d9 !important;
+}
+
+.notice-body h1,
+.notice-body h2,
+.notice-body h3 {
+    color: #e6edf3 !important;
+}
+
+.back-link {
+    color: #f0883e !important;
+}
+
+/* Contact Page */
+.contact-grid {
+    gap: 30px;
+}
+
+.contact-item {
+    background: #161b22 !important;
+    border: 1px solid #30363d !important;
+    border-radius: 12px;
+    color: #e6edf3 !important;
+}
+
+.contact-item h3 {
+    color: #e6edf3 !important;
+}
+
+.contact-item p,
+.contact-item a {
+    color: #8b949e !important;
+}
+
+.contact-form {
+    background: #161b22 !important;
+    border: 1px solid #30363d !important;
+    border-radius: 12px;
+}
+
+.form-group label {
+    color: #c9d1d9 !important;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    background: #0d1117 !important;
+    border: 1px solid #30363d !important;
+    color: #e6edf3 !important;
+    border-radius: 8px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #58a6ff !important;
+    outline: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #484f58 !important;
+}
+
+/* About Page */
+.about-content {
+    color: #c9d1d9 !important;
+}
+
+.about-content h2,
+.about-content h3 {
+    color: #e6edf3 !important;
+}
+
+.about-content p {
+    color: #8b949e !important;
+}
+
+.feature-card {
+    background: #161b22 !important;
+    box-shadow: none !important;
+    border: 1px solid #30363d !important;
+    border-radius: 12px;
+    color: #e6edf3 !important;
+}
+
+.feature-card:hover {
+    border-color: #58a6ff !important;
+}
+
+.feature-card h3 {
+    color: #e6edf3 !important;
+}
+
+.feature-card p {
+    color: #8b949e !important;
+}
+
+.feature-icon {
+    color: #58a6ff !important;
+}
+
+.features-grid {
+    gap: 20px;
+}
+
+/* Membership Page */
+.membership-section {
+    background: #0d1117 !important;
+}
+
+.benefits-section {
+    background: #0d1117 !important;
+}
+
+.benefit-card {
+    background: #161b22 !important;
+    box-shadow: none !important;
+    border: 1px solid #30363d !important;
+    border-radius: 12px;
+    color: #e6edf3 !important;
+}
+
+.benefit-card:hover {
+    border-color: #58a6ff !important;
+}
+
+.benefit-card h3 {
+    color: #e6edf3 !important;
+}
+
+.benefit-card p {
+    color: #8b949e !important;
+}
+
+.benefit-icon {
+    color: #58a6ff !important;
+}
+
+.join-section {
+    background: #161b22 !important;
+    border: 1px solid #30363d;
+}
+
+.join-section h2 {
+    color: #e6edf3 !important;
+}
+
+.join-section p {
+    color: #8b949e !important;
+}
+
+/* ===== CATCH-ALL OVERRIDES ===== */
+/* These catch any remaining inline white backgrounds */
+.card,
+.box,
+.panel,
+.item,
+[class*="-card"],
+[class*="-box"] {
+    box-shadow: none !important;
+}
+
+/* Ensure all h1-h6 inherit dark text */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #e6edf3;
+}
+
+/* Override any remaining hardcoded white bg on sections */
+.bg-light,
+.bg-white,
+[class*="bg-light"],
+[class*="bg-white"] {
+    background: #0d1117 !important;
+}
+
+/* Ensure description/content text is readable */
+p {
+    color: #8b949e;
+}
+
+/* Badges */
+.badge {
+    border: 1px solid #30363d;
+}
+
+/* Forms catch-all */
+input,
+textarea,
+select {
+    background: #0d1117 !important;
+    border-color: #30363d !important;
+    color: #e6edf3 !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: #58a6ff !important;
+    outline: none !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #484f58 !important;
+}
+
+/* Table catch-all */
+table {
+    border: 1px solid #30363d !important;
+}
+
+th {
+    background: #010409 !important;
+    color: #8b949e !important;
+    border-bottom: 1px solid #30363d !important;
+}
+
+td {
+    border-bottom: 1px solid #30363d !important;
+    color: #c9d1d9 !important;
+}
+
+tr:hover {
+    background: rgba(88, 166, 255, 0.04) !important;
+}

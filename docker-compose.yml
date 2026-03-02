@@ -1,0 +1,53 @@
+services:
+  mongodb:
+    image: mongo:7
+    container_name: iste-mongodb
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - iste-network
+
+  public-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.public
+    container_name: iste-public
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    volumes:
+      - uploads_data:/app/uploads
+    networks:
+      - iste-network
+
+  admin-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.admin
+    container_name: iste-admin
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3001:3001"
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    volumes:
+      - uploads_data:/app/uploads
+    networks:
+      - iste-network
+
+volumes:
+  mongo_data:
+    driver: local
+  uploads_data:
+    driver: local
+
+networks:
+  iste-network:
+    driver: bridge

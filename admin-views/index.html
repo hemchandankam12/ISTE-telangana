@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | ISTE Telangana</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #58a6ff;
+            --primary-deep: #1a3a5c;
+            --secondary: #f0883e;
+            --bg: #0d1117;
+            --card: #161b22;
+            --card-border: #30363d;
+            --text: #e6edf3;
+            --muted: #8b949e;
+            --sidebar: 260px;
+            --danger: #f85149;
+            --success: #3fb950;
+            --input-bg: #0d1117;
+            --input-border: #30363d;
+            --header-bg: #010409;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        /* LOGIN */
+        .login-wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0d1117 0%, #1a1a2e 50%, #0d1117 100%);
+        }
+
+        .login-box {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+        }
+
+        .login-box .logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 16px;
+            margin: 0 auto 15px;
+        }
+
+        .login-box h1 {
+            text-align: center;
+            font-size: 24px;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .login-box .sub {
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: var(--sidebar);
+            background: var(--header-bg);
+            border-right: 1px solid var(--card-border);
+            color: #fff;
+            padding: 20px 0;
+            overflow-y: auto;
+            z-index: 100;
+            transition: transform .3s;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, .1);
+        }
+
+        .sidebar-logo .icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 11px;
+        }
+
+        .sidebar-logo span {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .sidebar-nav {
+            padding: 15px 0;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 20px;
+            color: rgba(255, 255, 255, .65);
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            transition: all .2s;
+            cursor: pointer;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            color: #fff;
+            background: rgba(88, 166, 255, .08);
+        }
+
+        .sidebar-nav a.active {
+            border-left: 3px solid var(--primary);
+        }
+
+        .sidebar-nav a span {
+            font-size: 17px;
+        }
+
+        .sidebar-nav hr {
+            border: none;
+            border-top: 1px solid var(--card-border);
+            margin: 8px 20px;
+        }
+
+        /* MAIN */
+        .main {
+            margin-left: var(--sidebar);
+            padding: 25px 30px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .top-bar h1 {
+            font-size: 26px;
+            color: var(--text);
+        }
+
+        /* FORM ELEMENTS */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border .2s;
+            background: var(--input-bg);
+            color: var(--text);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 10px 22px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 13px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all .2s;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #e55a2b;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: #fff;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+        }
+
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 11px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        /* CARDS & TABLE */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 25px;
+            box-shadow: none;
+            margin-bottom: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 22px;
+            box-shadow: none;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 32px;
+            color: var(--primary);
+        }
+
+        .stat-card p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+        }
+
+        .quick-card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+            box-shadow: none;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+
+        .quick-card span {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .quick-card h4 {
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        table {
+            width: 100%;
+            background: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--header-bg);
+            color: var(--muted);
+            padding: 12px 14px;
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--card-border);
+            font-size: 13px;
+        }
+
+        tr:hover {
+            background: rgba(88, 166, 255, .04);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .badge-yes {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-no {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-urgent {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .badge-high {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .img-thumb {
+            width: 50px;
+            height: 35px;
+            object-fit: cover;
+            border-radius: 5px;
+            background: #eee;
+        }
+
+        .msg {
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 13px;
+            display: none;
+        }
+
+        .msg-ok {
+            background: rgba(63, 185, 80, .15);
+            color: var(--success);
+            border: 1px solid rgba(63, 185, 80, .3);
+            display: block;
+        }
+
+        .msg-err {
+            background: rgba(248, 81, 73, .15);
+            color: var(--danger);
+            border: 1px solid rgba(248, 81, 73, .3);
+            display: block;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 35px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .image-preview {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .image-preview .img-item {
+            position: relative;
+            width: 80px;
+            height: 60px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .image-preview .img-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview .img-item .del {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: var(--danger);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #page-login {
+            display: none;
+        }
+
+        #app {
+            display: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media(max-width:768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 15px;
+            }
+
+            .form-row,
+            .form-row-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .hamburger {
+                display: block !important;
+            }
+        }
+
+        .hamburger {
+            display: none;
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 200;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            color: var(--text);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="hamburger" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+
+    <!-- LOGIN PAGE -->
+    <div id="page-login" class="login-wrap">
+        <div class="login-box">
+            <div class="logo-icon">ISTE</div>
+            <h1>Admin Panel</h1>
+            <p class="sub">ISTE Telangana CMS</p>
+            <div id="loginError" class="msg"></div>
+            <form onsubmit="doLogin(event)">
+                <div class="form-group"><label>Username</label><input type="text" id="loginUser" required
+                        placeholder="Enter username"></div>
+                <div class="form-group"><label>Password</label><input type="password" id="loginPass" required
+                        placeholder="Enter password"></div>
+                <button type="submit" class="btn btn-primary" style="width:100%;padding:14px;">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- APP -->
+    <div id="app">
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <div class="icon">ISTE</div><span>Admin CMS</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a onclick="showPage('dashboard')" data-page="dashboard" class="active"><span
+                        style="font-size:13px;opacity:.7;">||</span> Dashboard</a>
+                <hr>
+                <a onclick="showPage('events')" data-page="events"><span style="font-size:13px;opacity:.7;">E</span>
+                    Events</a>
+                <a onclick="showPage('announcements')" data-page="announcements"><span
+                        style="font-size:13px;opacity:.7;">A</span> Announcements</a>
+                <a onclick="showPage('headlines')" data-page="headlines"><span
+                        style="font-size:13px;opacity:.7;">H</span> Headlines</a>
+                <a onclick="showPage('members')" data-page="members"><span style="font-size:13px;opacity:.7;">M</span>
+                    Members</a>
+                <a onclick="showPage('gallery')" data-page="gallery"><span style="font-size:13px;opacity:.7;">G</span>
+                    Gallery</a>
+                <a onclick="showPage('documents')" data-page="documents"><span
+                        style="font-size:13px;opacity:.7;">D</span> Documents</a>
+                <a onclick="showPage('awards')" data-page="awards"><span style="font-size:13px;opacity:.7;">W</span>
+                    Awards</a>
+                <hr>
+                <a onclick="showPage('settings')" data-page="settings"><span style="font-size:13px;opacity:.7;">S</span>
+                    Site Settings</a>
+                <a onclick="showPage('password')" data-page="password"><span style="font-size:13px;opacity:.7;">P</span>
+                    Change Password</a>
+                <hr>
+                <a onclick="doLogout()"><span style="font-size:13px;opacity:.7;">X</span> Logout</a>
+            </nav>
+        </div>
+        <div class="main">
+            <!-- DASHBOARD -->
+            <div id="pg-dashboard" class="page">
+                <div class="top-bar">
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="stats-grid" id="statsGrid"></div>
+                <h2 style="font-size:20px;color:var(--primary);margin-bottom:14px;">Quick Actions</h2>
+                <div class="quick-grid">
+                    <div class="quick-card" onclick="showPage('events');showForm('events')"><span
+                            style="font-size:22px;color:var(--primary);">+</span>
+                        <h4>Add Event</h4>
+                    </div>
+                    <div class="quick-card" onclick="showPage('announcements');showForm('announcements')">
+                        <span style="font-size:22px;color:var(--primary);">+</span>
+                        <h4>Add Announcement</h4>
+                    </div>
+                    <div class="quick-card" onclick="showPage('headlines');showForm('headlines')"><span
+                            style="font-size:22px;color:var(--primary);">+</span>
+                        <h4>Add Headline</h4>
+                    </div>
+                    <div class="quick-card" onclick="showPage('members');showForm('members')"><span
+                            style="font-size:22px;color:var(--primary);">+</span>
+                        <h4>Add Member</h4>
+                    </div>
+                    <div class="quick-card" onclick="showPage('gallery');showForm('gallery')"><span
+                            style="font-size:22px;color:var(--primary);">+</span>
+                        <h4>Add Gallery</h4>
+                    </div>
+                    <div class="quick-card" onclick="showPage('documents');showForm('documents')"><span
+                            style="font-size:22px;color:var(--primary);">+</span>
+                        <h4>Add Document</h4>
+                    </div>
+                    <div class="quick-card" onclick="showPage('awards');showForm('awards')"><span
+                            style="font-size:22px;color:var(--primary);">+</span>
+                        <h4>Add Award</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EVENTS -->
+            <div id="pg-events" class="page hidden">
+                <div class="top-bar">
+                    <h1>Events</h1><button class="btn btn-primary" onclick="showForm('events')">+ Add Event</button>
+                </div>
+                <div id="events-list"></div>
+                <div id="events-form" class="card hidden">
+                    <h2 id="events-form-title" style="font-size:20px;color:var(--primary);margin-bottom:15px;">Add Event
+                    </h2>
+                    <div id="events-msg"></div>
+                    <form onsubmit="saveItem('events',event)">
+                        <input type="hidden" id="events-id">
+                        <div class="form-group"><label>Title *</label><input type="text" id="events-title" required>
+                        </div>
+                        <div class="form-group"><label>Description *</label><textarea id="events-description"
+                                required></textarea></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Date *</label><input type="date" id="events-eventDate"
+                                    required></div>
+                            <div class="form-group"><label>Location *</label><input type="text" id="events-location"
+                                    required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Category</label><select id="events-category">
+                                    <option>Event</option>
+                                    <option>Conference</option>
+                                    <option>Workshop</option>
+                                    <option>Seminar</option>
+                                    <option>Competition</option>
+                                    <option>Hackathon</option>
+                                </select></div>
+                            <div class="form-group"><label>&nbsp;</label>
+                                <div class="checkbox-group"><input type="checkbox" id="events-isUpcoming" checked><label
+                                        for="events-isUpcoming">Upcoming</label><input type="checkbox"
+                                        id="events-isActive" checked style="margin-left:12px;"><label
+                                        for="events-isActive">Active</label></div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Cover Image</label><input type="file" id="events-coverImage"
+                                accept="image/*">
+                            <div id="events-coverPreview" class="image-preview"></div>
+                        </div>
+                        <div class="form-group"><label>Gallery Images</label><input type="file" id="events-images"
+                                accept="image/*" multiple>
+                            <div id="events-galleryPreview" class="image-preview"></div>
+                        </div>
+                        <div style="display:flex;gap:10px;"><button type="submit" class="btn btn-primary"
+                                id="events-submit">Create</button><button type="button" class="btn btn-secondary"
+                                onclick="hideForm('events')">Cancel</button></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- ANNOUNCEMENTS -->
+            <div id="pg-announcements" class="page hidden">
+                <div class="top-bar">
+                    <h1>Announcements</h1><button class="btn btn-primary" onclick="showForm('announcements')">+ Add
+                        Announcement</button>
+                </div>
+                <div id="announcements-list"></div>
+                <div id="announcements-form" class="card hidden">
+                    <h2 id="announcements-form-title" style="font-size:20px;color:var(--primary);margin-bottom:15px;">
+                        Add Announcement</h2>
+                    <div id="announcements-msg"></div>
+                    <form onsubmit="saveItem('announcements',event)">
+                        <input type="hidden" id="announcements-id">
+                        <div class="form-group"><label>Title *</label><input type="text" id="announcements-title"
+                                required></div>
+                        <div class="form-group"><label>Description *</label><textarea id="announcements-description"
+                                required></textarea></div>
+                        <div class="form-row-3">
+                            <div class="form-group"><label>Priority</label><select id="announcements-priority">
+                                    <option value="low">Low</option>
+                                    <option value="normal" selected>Normal</option>
+                                    <option value="high">High</option>
+                                    <option value="urgent">Urgent</option>
+                                </select></div>
+                            <div class="form-group"><label>Publish Date</label><input type="date"
+                                    id="announcements-publishDate"></div>
+                            <div class="form-group"><label>Expiry Date</label><input type="date"
+                                    id="announcements-expiryDate"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group"><input type="checkbox" id="announcements-isActive"
+                                    checked><label for="announcements-isActive">Active</label></div>
+                        </div>
+                        <div class="form-group"><label>PDF Attachment</label><input type="file" id="announcements-pdf"
+                                accept="application/pdf"></div>
+                        <div style="display:flex;gap:10px;"><button type="submit" class="btn btn-primary"
+                                id="announcements-submit">Create</button><button type="button" class="btn btn-secondary"
+                                onclick="hideForm('announcements')">Cancel</button></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- HEADLINES -->
+            <div id="pg-headlines" class="page hidden">
+                <div class="top-bar">
+                    <h1>Scrolling Headlines</h1><button class="btn btn-primary" onclick="showForm('headlines')">+ Add
+                        Headline</button>
+                </div>
+                <div id="headlines-list"></div>
+                <div id="headlines-form" class="card hidden">
+                    <h2 id="headlines-form-title" style="font-size:20px;color:var(--primary);margin-bottom:15px;">Add
+                        Headline</h2>
+                    <div id="headlines-msg"></div>
+                    <form onsubmit="saveItem('headlines',event)">
+                        <input type="hidden" id="headlines-id">
+                        <div class="form-group"><label>Headline Text *</label><input type="text" id="headlines-text"
+                                required placeholder="📢 Breaking news or announcement..."></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Order</label><input type="number" id="headlines-order"
+                                    value="0" min="0"></div>
+                            <div class="form-group"><label>&nbsp;</label>
+                                <div class="checkbox-group"><input type="checkbox" id="headlines-isActive"
+                                        checked><label for="headlines-isActive">Active</label></div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:10px;"><button type="submit" class="btn btn-primary"
+                                id="headlines-submit">Create</button><button type="button" class="btn btn-secondary"
+                                onclick="hideForm('headlines')">Cancel</button></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- MEMBERS -->
+            <div id="pg-members" class="page hidden">
+                <div class="top-bar">
+                    <h1>Office Bearers</h1><button class="btn btn-primary" onclick="showForm('members')">+ Add
+                        Member</button>
+                </div>
+                <div id="members-list"></div>
+                <div id="members-form" class="card hidden">
+                    <h2 id="members-form-title" style="font-size:20px;color:var(--primary);margin-bottom:15px;">Add
+                        Member</h2>
+                    <div id="members-msg"></div>
+                    <form onsubmit="saveItem('members',event)">
+                        <input type="hidden" id="members-id">
+                        <div class="form-row">
+                            <div class="form-group"><label>Name *</label><input type="text" id="members-name" required>
+                            </div>
+                            <div class="form-group"><label>Designation *</label><input type="text"
+                                    id="members-designation" required placeholder="e.g. Chairperson"></div>
+                        </div>
+                        <div class="form-row-3">
+                            <div class="form-group"><label>Organization</label><input type="text"
+                                    id="members-organization" placeholder="e.g. JNTU Hyderabad"></div>
+                            <div class="form-group"><label>Committee</label><select id="members-committee">
+                                    <option>Executive</option>
+                                    <option>Advisory</option>
+                                    <option>Technical</option>
+                                    <option>Finance</option>
+                                    <option>Editorial</option>
+                                </select></div>
+                            <div class="form-group"><label>Year</label><input type="text" id="members-year"
+                                    value="2025"></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Order</label><input type="number" id="members-order"
+                                    value="0" min="0"></div>
+                            <div class="form-group"><label>&nbsp;</label>
+                                <div class="checkbox-group"><input type="checkbox" id="members-isActive" checked><label
+                                        for="members-isActive">Active</label></div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Photo</label><input type="file" id="members-photo"
+                                accept="image/*">
+                            <div id="members-photoPreview" class="image-preview"></div>
+                        </div>
+                        <div style="display:flex;gap:10px;"><button type="submit" class="btn btn-primary"
+                                id="members-submit">Create</button><button type="button" class="btn btn-secondary"
+                                onclick="hideForm('members')">Cancel</button></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- GALLERY -->
+            <div id="pg-gallery" class="page hidden">
+                <div class="top-bar">
+                    <h1>Gallery</h1><button class="btn btn-primary" onclick="showForm('gallery')">+ Add Album</button>
+                </div>
+                <div id="gallery-list"></div>
+                <div id="gallery-form" class="card hidden">
+                    <h2 id="gallery-form-title" style="font-size:20px;color:var(--primary);margin-bottom:15px;">Add
+                        Album</h2>
+                    <div id="gallery-msg"></div>
+                    <form onsubmit="saveItem('gallery',event)">
+                        <input type="hidden" id="gallery-id">
+                        <div class="form-row">
+                            <div class="form-group"><label>Title *</label><input type="text" id="gallery-title"
+                                    required></div>
+                            <div class="form-group"><label>Category</label><input type="text" id="gallery-category"
+                                    value="General" placeholder="e.g. Workshop, Conference"></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox-group"><input type="checkbox" id="gallery-isActive" checked><label
+                                    for="gallery-isActive">Active</label></div>
+                        </div>
+                        <div class="form-group"><label>Cover Image</label><input type="file" id="gallery-coverImage"
+                                accept="image/*">
+                            <div id="gallery-coverPreview" class="image-preview"></div>
+                        </div>
+                        <div class="form-group"><label>Images (multiple)</label><input type="file" id="gallery-images"
+                                accept="image/*" multiple>
+                            <div id="gallery-galleryPreview" class="image-preview"></div>
+                        </div>
+                        <div style="display:flex;gap:10px;"><button type="submit" class="btn btn-primary"
+                                id="gallery-submit">Create</button><button type="button" class="btn btn-secondary"
+                                onclick="hideForm('gallery')">Cancel</button></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- DOCUMENTS -->
+            <div id="pg-documents" class="page hidden">
+                <div class="top-bar">
+                    <h1>Documents</h1><button class="btn btn-primary" onclick="showForm('documents')">+ Add
+                        Document</button>
+                </div>
+                <div id="documents-list"></div>
+                <div id="documents-form" class="card hidden">
+                    <h2 id="documents-form-title" style="font-size:20px;color:var(--primary);margin-bottom:15px;">Add
+                        Document</h2>
+                    <div id="documents-msg"></div>
+                    <form onsubmit="saveItem('documents',event)">
+                        <input type="hidden" id="documents-id">
+                        <div class="form-group"><label>Title *</label><input type="text" id="documents-title" required>
+                        </div>
+                        <div class="form-group"><label>Description</label><textarea
+                                id="documents-description"></textarea></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Category</label><input type="text" id="documents-category"
+                                    value="General" placeholder="e.g. Report, Circular, Notice"></div>
+                            <div class="form-group"><label>&nbsp;</label>
+                                <div class="checkbox-group"><input type="checkbox" id="documents-isActive"
+                                        checked><label for="documents-isActive">Active</label></div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>File *</label><input type="file" id="documents-file"></div>
+                        <div style="display:flex;gap:10px;"><button type="submit" class="btn btn-primary"
+                                id="documents-submit">Create</button><button type="button" class="btn btn-secondary"
+                                onclick="hideForm('documents')">Cancel</button></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- AWARDS -->
+            <div id="pg-awards" class="page hidden">
+                <div class="top-bar">
+                    <h1>Awards</h1><button class="btn btn-primary" onclick="showForm('awards')">+ Add Award</button>
+                </div>
+                <div id="awards-list"></div>
+                <div id="awards-form" class="card hidden">
+                    <h2 id="awards-form-title" style="font-size:20px;color:var(--primary);margin-bottom:15px;">Add Award
+                    </h2>
+                    <div id="awards-msg"></div>
+                    <form onsubmit="saveItem('awards',event)">
+                        <input type="hidden" id="awards-id">
+                        <div class="form-group"><label>Title *</label><input type="text" id="awards-title" required
+                                placeholder="e.g. Best Teacher Award 2025"></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Award Type *</label><select id="awards-awardType">
+                                    <option>Best Teacher</option>
+                                    <option>Best Student</option>
+                                    <option>Best College</option>
+                                    <option>Lifetime Achievement</option>
+                                    <option>Best Chapter</option>
+                                    <option>Best Researcher</option>
+                                    <option>Other</option>
+                                </select></div>
+                            <div class="form-group"><label>Year *</label><input type="number" id="awards-year"
+                                    value="2025" min="2000" max="2099"></div>
+                        </div>
+                        <div class="form-group"><label>Description</label><textarea id="awards-description"
+                                placeholder="Award description..."></textarea></div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Icon (emoji)</label><input type="text" id="awards-icon"
+                                    value="🏆" placeholder="🏆"></div>
+                            <div class="form-group"><label>&nbsp;</label>
+                                <div class="checkbox-group"><input type="checkbox" id="awards-isActive" checked><label
+                                        for="awards-isActive">Active</label></div>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>PDF Certificate/Document</label><input type="file"
+                                id="awards-pdf" accept="application/pdf"></div>
+                        <div style="display:flex;gap:10px;"><button type="submit" class="btn btn-primary"
+                                id="awards-submit">Create</button><button type="button" class="btn btn-secondary"
+                                onclick="hideForm('awards')">Cancel</button></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- SETTINGS -->
+            <div id="pg-settings" class="page hidden">
+                <div class="top-bar">
+                    <h1>Site Settings</h1>
+                </div>
+                <div id="settings-msg"></div>
+                <div class="card">
+                    <form onsubmit="saveSettings(event)">
+                        <h2 style="font-size:18px;color:var(--primary);margin-bottom:14px;">🏠 Homepage Banner</h2>
+                        <div class="form-group"><label>Banner Title</label><input type="text" id="set-bannerTitle">
+                        </div>
+                        <div class="form-group"><label>Banner Subtitle</label><textarea id="set-bannerSubtitle"
+                                style="min-height:60px;"></textarea></div>
+                        <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
+                        <h2 style="font-size:18px;color:var(--primary);margin-bottom:14px;">📧 Contact Info</h2>
+                        <div class="form-row-3">
+                            <div class="form-group"><label>Email</label><input type="email" id="set-contactEmail"></div>
+                            <div class="form-group"><label>Phone</label><input type="text" id="set-contactPhone"></div>
+                            <div class="form-group"><label>Address</label><input type="text" id="set-contactAddress">
+                            </div>
+                        </div>
+                        <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
+                        <h2 style="font-size:18px;color:var(--primary);margin-bottom:14px;">🔗 Social Media</h2>
+                        <div class="form-row-3">
+                            <div class="form-group"><label>Facebook</label><input type="url" id="set-socialFacebook"
+                                    placeholder="https://"></div>
+                            <div class="form-group"><label>Twitter</label><input type="url" id="set-socialTwitter"
+                                    placeholder="https://"></div>
+                            <div class="form-group"><label>LinkedIn</label><input type="url" id="set-socialLinkedin"
+                                    placeholder="https://"></div>
+                        </div>
+                        <div class="form-row-3">
+                            <div class="form-group"><label>Instagram</label><input type="url" id="set-socialInstagram"
+                                    placeholder="https://"></div>
+                            <div class="form-group"><label>YouTube</label><input type="url" id="set-socialYoutube"
+                                    placeholder="https://"></div>
+                            <div></div>
+                        </div>
+                        <hr style="margin:20px 0;border:none;border-top:1px solid #eee;">
+                        <h2 style="font-size:18px;color:var(--primary);margin-bottom:14px;">📝 Footer</h2>
+                        <div class="form-group"><label>Footer Text</label><textarea id="set-footerText"
+                                style="min-height:60px;"></textarea></div>
+                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- CHANGE PASSWORD -->
+            <div id="pg-password" class="page hidden">
+                <div class="top-bar">
+                    <h1>Change Password</h1>
+                </div>
+                <div class="card" style="max-width:500px;">
+                    <div id="password-msg"></div>
+                    <form onsubmit="changePassword(event)">
+                        <div class="form-group"><label>Current Password</label><input type="password" id="pw-current"
+                                required></div>
+                        <div class="form-group"><label>New Password</label><input type="password" id="pw-new" required
+                                minlength="6"></div>
+                        <div class="form-group"><label>Confirm New Password</label><input type="password"
+                                id="pw-confirm" required></div>
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ═══════════════════════ CORE ═══════════════════════ */
+        const API = '/api/admin';
+        const PUB = '/api/public';
+        let TOKEN = localStorage.getItem('iste_token');
+
+        function authHeaders() { return { 'Authorization': 'Bearer ' + TOKEN }; }
+        function jsonAuth() { return { 'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json' }; }
+
+        function fmtDate(d) { return d ? new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '-'; }
+
+        /* ───── AUTH ───── */
+        function checkAuth() {
+            if (TOKEN) { document.getElementById('page-login').style.display = 'none'; document.getElementById('app').style.display = 'block'; loadDashboard(); }
+            else { document.getElementById('page-login').style.display = 'flex'; document.getElementById('app').style.display = 'none'; }
+        }
+        async function doLogin(e) {
+            e.preventDefault();
+            const el = document.getElementById('loginError');
+            el.className = 'msg';
+            try {
+                const r = await fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: document.getElementById('loginUser').value, password: document.getElementById('loginPass').value }) });
+                const d = await r.json();
+                if (d.success) { TOKEN = d.token; localStorage.setItem('iste_token', TOKEN); checkAuth(); }
+                else { el.textContent = d.error || 'Login failed'; el.className = 'msg msg-err'; }
+            } catch (e) { el.textContent = 'Connection error'; el.className = 'msg msg-err'; }
+        }
+        function doLogout() { TOKEN = null; localStorage.removeItem('iste_token'); checkAuth(); }
+
+        /* ───── NAVIGATION ───── */
+        function showPage(name) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById('pg-' + name).classList.remove('hidden');
+            document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+            const link = document.querySelector(`[data-page="${name}"]`);
+            if (link) link.classList.add('active');
+            document.querySelector('.sidebar').classList.remove('open');
+            // Load data for the page
+            if (name === 'dashboard') loadDashboard();
+            else if (name === 'settings') loadSettings();
+            else if (['events', 'announcements', 'headlines', 'members', 'gallery', 'documents', 'awards'].includes(name)) loadList(name);
+        }
+
+        /* ───── DASHBOARD ───── */
+        async function loadDashboard() {
+            try {
+                const [ev, an, hl, me, ga, dc, aw] = await Promise.all([
+                    fetch(PUB + '/events').then(r => r.json()),
+                    fetch(PUB + '/announcements').then(r => r.json()),
+                    fetch(PUB + '/headlines').then(r => r.json()),
+                    fetch(PUB + '/members').then(r => r.json()),
+                    fetch(PUB + '/gallery').then(r => r.json()),
+                    fetch(PUB + '/documents').then(r => r.json()),
+                    fetch(PUB + '/awards').then(r => r.json())
+                ]);
+                document.getElementById('statsGrid').innerHTML = `
+            <div class="stat-card"><h3>${ev.length}</h3><p>Events</p></div>
+            <div class="stat-card"><h3>${an.length}</h3><p>Announcements</p></div>
+            <div class="stat-card"><h3>${hl.length}</h3><p>Headlines</p></div>
+            <div class="stat-card"><h3>${me.length}</h3><p>Members</p></div>
+            <div class="stat-card"><h3>${ga.reduce((s, g) => s + g.images.length, 0)}</h3><p>Gallery Images</p></div>
+            <div class="stat-card"><h3>${dc.length}</h3><p>Documents</p></div>
+            <div class="stat-card"><h3>${aw.length}</h3><p>Awards</p></div>`;
+            } catch (e) { console.error(e); }
+        }
+
+        /* ═══════════════════════ GENERIC CRUD ═══════════════════════ */
+        const COLS = {
+            events: { list: (d) => `<tr><td>${d.coverImage ? `<img src="${d.coverImage}" class="img-thumb">` : '📅'}</td><td><b>${d.title}</b></td><td>${fmtDate(d.eventDate)}</td><td>${d.location}</td><td>${d.category}</td><td><span class="badge ${d.isUpcoming ? 'badge-yes' : 'badge-no'}">${d.isUpcoming ? 'Yes' : 'No'}</span></td><td><span class="badge ${d.isActive ? 'badge-yes' : 'badge-no'}">${d.isActive ? '✓' : '✗'}</span></td><td class="actions"><button class="btn btn-primary btn-sm" onclick="editItem('events','${d._id}')">Edit</button><button class="btn btn-danger btn-sm" onclick="delItem('events','${d._id}')">Del</button></td></tr>`, head: '<tr><th>Cover</th><th>Title</th><th>Date</th><th>Location</th><th>Cat</th><th>Upcoming</th><th>Active</th><th>Actions</th></tr>' },
+            announcements: { list: (d) => `<tr><td><b>${d.title}</b></td><td><span class="badge ${d.priority === 'urgent' ? 'badge-urgent' : d.priority === 'high' ? 'badge-high' : 'badge-yes'}">${d.priority}</span></td><td><span class="badge ${d.isActive ? 'badge-yes' : 'badge-no'}">${d.isActive ? 'Active' : 'Off'}</span></td><td>${fmtDate(d.publishDate)}</td><td>${d.expiryDate ? fmtDate(d.expiryDate) : 'Never'}</td><td>${d.pdfPath ? '📄' : '-'}</td><td class="actions"><button class="btn btn-primary btn-sm" onclick="editItem('announcements','${d._id}')">Edit</button><button class="btn btn-danger btn-sm" onclick="delItem('announcements','${d._id}')">Del</button></td></tr>`, head: '<tr><th>Title</th><th>Priority</th><th>Status</th><th>Published</th><th>Expires</th><th>PDF</th><th>Actions</th></tr>' },
+            headlines: { list: (d) => `<tr><td>${d.order}</td><td>${d.text}</td><td><span class="badge ${d.isActive ? 'badge-yes' : 'badge-no'}">${d.isActive ? 'Active' : 'Off'}</span></td><td class="actions"><button class="btn btn-primary btn-sm" onclick="editItem('headlines','${d._id}')">Edit</button><button class="btn btn-danger btn-sm" onclick="delItem('headlines','${d._id}')">Del</button></td></tr>`, head: '<tr><th>#</th><th>Text</th><th>Status</th><th>Actions</th></tr>' },
+            members: { list: (d) => `<tr><td>${d.photo ? `<img src="${d.photo}" class="img-thumb">` : '👤'}</td><td><b>${d.name}</b></td><td>${d.designation}</td><td>${d.organization}</td><td>${d.committee}</td><td>${d.year}</td><td><span class="badge ${d.isActive ? 'badge-yes' : 'badge-no'}">${d.isActive ? '✓' : '✗'}</span></td><td class="actions"><button class="btn btn-primary btn-sm" onclick="editItem('members','${d._id}')">Edit</button><button class="btn btn-danger btn-sm" onclick="delItem('members','${d._id}')">Del</button></td></tr>`, head: '<tr><th>Photo</th><th>Name</th><th>Designation</th><th>Org</th><th>Committee</th><th>Year</th><th>Active</th><th>Actions</th></tr>' },
+            gallery: { list: (d) => `<tr><td>${d.coverImage ? `<img src="${d.coverImage}" class="img-thumb">` : '🖼️'}</td><td><b>${d.title}</b></td><td>${d.category}</td><td>${d.images ? d.images.length : 0}</td><td><span class="badge ${d.isActive ? 'badge-yes' : 'badge-no'}">${d.isActive ? '✓' : '✗'}</span></td><td class="actions"><button class="btn btn-primary btn-sm" onclick="editItem('gallery','${d._id}')">Edit</button><button class="btn btn-danger btn-sm" onclick="delItem('gallery','${d._id}')">Del</button></td></tr>`, head: '<tr><th>Cover</th><th>Title</th><th>Category</th><th>Images</th><th>Active</th><th>Actions</th></tr>' },
+            documents: { list: (d) => `<tr><td><b>${d.title}</b></td><td>${d.category}</td><td>${d.downloadCount}</td><td><span class="badge ${d.isActive ? 'badge-yes' : 'badge-no'}">${d.isActive ? '✓' : '✗'}</span></td><td><a href="${d.filePath}" target="_blank" class="btn btn-sm btn-outline">View</a></td><td class="actions"><button class="btn btn-primary btn-sm" onclick="editItem('documents','${d._id}')">Edit</button><button class="btn btn-danger btn-sm" onclick="delItem('documents','${d._id}')">Del</button></td></tr>`, head: '<tr><th>Title</th><th>Category</th><th>Downloads</th><th>Active</th><th>File</th><th>Actions</th></tr>' },
+            awards: { list: (d) => `<tr><td>${d.icon || '🏆'}</td><td><b>${d.title}</b></td><td>${d.awardType}</td><td>${d.year}</td><td>${d.pdfPath ? '<a href="' + d.pdfPath + '" target="_blank" class="btn btn-sm btn-outline">📄 PDF</a>' : '-'}</td><td><span class="badge ${d.isActive ? 'badge-yes' : 'badge-no'}">${d.isActive ? '✓' : '✗'}</span></td><td class="actions"><button class="btn btn-primary btn-sm" onclick="editItem('awards','${d._id}')">Edit</button><button class="btn btn-danger btn-sm" onclick="delItem('awards','${d._id}')">Del</button></td></tr>`, head: '<tr><th>Icon</th><th>Title</th><th>Type</th><th>Year</th><th>PDF</th><th>Active</th><th>Actions</th></tr>' }
+        };
+
+        async function loadList(mod) {
+            try {
+                const r = await fetch(API + '/' + mod + '?active=all', { headers: authHeaders() });
+                if (r.status === 401) { doLogout(); return; }
+                const data = await r.json();
+                const c = COLS[mod];
+                document.getElementById(mod + '-list').innerHTML = data.length ?
+                    `<table><thead>${c.head}</thead><tbody>${data.map(c.list).join('')}</tbody></table>` :
+                    `<div class="empty">No items yet. Click the + button to add.</div>`;
+            } catch (e) { console.error(e); }
+        }
+
+        function showForm(mod) {
+            document.getElementById(mod + '-id').value = '';
+            document.getElementById(mod + '-form').classList.remove('hidden');
+            document.getElementById(mod + '-form-title').textContent = 'Add ' + mod.charAt(0).toUpperCase() + mod.slice(1).replace(/s$/, '');
+            document.getElementById(mod + '-submit').textContent = 'Create';
+            // Reset form fields
+            document.getElementById(mod + '-form').querySelector('form').reset();
+            // Re-check default checkboxes
+            const cbs = document.getElementById(mod + '-form').querySelectorAll('input[type="checkbox"]');
+            cbs.forEach(cb => cb.checked = true);
+            const msgEl = document.getElementById(mod + '-msg');
+            if (msgEl) msgEl.className = 'msg';
+            // Clear previews
+            document.querySelectorAll(`#${mod}-form .image-preview`).forEach(p => p.innerHTML = '');
+        }
+
+        function hideForm(mod) { document.getElementById(mod + '-form').classList.add('hidden'); }
+
+        async function editItem(mod, id) {
+            showForm(mod);
+            document.getElementById(mod + '-id').value = id;
+            document.getElementById(mod + '-form-title').textContent = 'Edit ' + mod.charAt(0).toUpperCase() + mod.slice(1).replace(/s$/, '');
+            document.getElementById(mod + '-submit').textContent = 'Update';
+            try {
+                const r = await fetch(API + '/' + mod + '/' + id, { headers: authHeaders() });
+                const d = await r.json();
+                // Fill fields based on module
+                if (mod === 'events') {
+                    ['title', 'description', 'location', 'category'].forEach(f => { const el = document.getElementById('events-' + f); if (el) el.value = d[f] || ''; });
+                    document.getElementById('events-eventDate').value = d.eventDate ? d.eventDate.split('T')[0] : '';
+                    document.getElementById('events-isUpcoming').checked = d.isUpcoming;
+                    document.getElementById('events-isActive').checked = d.isActive;
+                    if (d.coverImage) document.getElementById('events-coverPreview').innerHTML = `<div class="img-item"><img src="${d.coverImage}"></div>`;
+                    if (d.images && d.images.length) document.getElementById('events-galleryPreview').innerHTML = d.images.map((img, i) => `<div class="img-item"><img src="${img}"><button class="del" onclick="delSubImage('events','${id}',${i})">×</button></div>`).join('');
+                } else if (mod === 'announcements') {
+                    ['title', 'description', 'priority'].forEach(f => { const el = document.getElementById('announcements-' + f); if (el) el.value = d[f] || ''; });
+                    document.getElementById('announcements-publishDate').value = d.publishDate ? d.publishDate.split('T')[0] : '';
+                    document.getElementById('announcements-expiryDate').value = d.expiryDate ? d.expiryDate.split('T')[0] : '';
+                    document.getElementById('announcements-isActive').checked = d.isActive;
+                } else if (mod === 'headlines') {
+                    document.getElementById('headlines-text').value = d.text || '';
+                    document.getElementById('headlines-order').value = d.order || 0;
+                    document.getElementById('headlines-isActive').checked = d.isActive;
+                } else if (mod === 'members') {
+                    ['name', 'designation', 'organization', 'committee', 'year'].forEach(f => { const el = document.getElementById('members-' + f); if (el) el.value = d[f] || ''; });
+                    document.getElementById('members-order').value = d.order || 0;
+                    document.getElementById('members-isActive').checked = d.isActive;
+                    if (d.photo) document.getElementById('members-photoPreview').innerHTML = `<div class="img-item"><img src="${d.photo}"></div>`;
+                } else if (mod === 'gallery') {
+                    ['title', 'category'].forEach(f => { const el = document.getElementById('gallery-' + f); if (el) el.value = d[f] || ''; });
+                    document.getElementById('gallery-isActive').checked = d.isActive;
+                    if (d.coverImage) document.getElementById('gallery-coverPreview').innerHTML = `<div class="img-item"><img src="${d.coverImage}"></div>`;
+                    if (d.images && d.images.length) document.getElementById('gallery-galleryPreview').innerHTML = d.images.map((img, i) => `<div class="img-item"><img src="${img}"><button class="del" onclick="delSubImage('gallery','${id}',${i})">×</button></div>`).join('');
+                } else if (mod === 'documents') {
+                    ['title', 'description', 'category'].forEach(f => { const el = document.getElementById('documents-' + f); if (el) el.value = d[f] || ''; });
+                    document.getElementById('documents-isActive').checked = d.isActive;
+                } else if (mod === 'awards') {
+                    ['title', 'description', 'awardType', 'icon'].forEach(f => { const el = document.getElementById('awards-' + f); if (el) el.value = d[f] || ''; });
+                    document.getElementById('awards-year').value = d.year || 2025;
+                    document.getElementById('awards-isActive').checked = d.isActive;
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        async function saveItem(mod, e) {
+            e.preventDefault();
+            const msgEl = document.getElementById(mod + '-msg');
+            msgEl.className = 'msg';
+            const id = document.getElementById(mod + '-id').value;
+            const isEdit = !!id;
+            const fd = new FormData();
+
+            if (mod === 'events') {
+                fd.append('title', document.getElementById('events-title').value);
+                fd.append('description', document.getElementById('events-description').value);
+                fd.append('eventDate', document.getElementById('events-eventDate').value);
+                fd.append('location', document.getElementById('events-location').value);
+                fd.append('category', document.getElementById('events-category').value);
+                fd.append('isUpcoming', document.getElementById('events-isUpcoming').checked);
+                fd.append('isActive', document.getElementById('events-isActive').checked);
+                const cover = document.getElementById('events-coverImage').files[0];
+                if (cover) fd.append('coverImage', cover);
+                const imgs = document.getElementById('events-images').files;
+                for (let i = 0; i < imgs.length; i++) fd.append('images', imgs[i]);
+            } else if (mod === 'announcements') {
+                fd.append('title', document.getElementById('announcements-title').value);
+                fd.append('description', document.getElementById('announcements-description').value);
+                fd.append('priority', document.getElementById('announcements-priority').value);
+                fd.append('publishDate', document.getElementById('announcements-publishDate').value || new Date().toISOString().split('T')[0]);
+                const exp = document.getElementById('announcements-expiryDate').value;
+                if (exp) fd.append('expiryDate', exp);
+                fd.append('isActive', document.getElementById('announcements-isActive').checked);
+                const pdf = document.getElementById('announcements-pdf').files[0];
+                if (pdf) fd.append('pdf', pdf);
+            } else if (mod === 'headlines') {
+                // Headlines use JSON
+                const body = { text: document.getElementById('headlines-text').value, order: parseInt(document.getElementById('headlines-order').value) || 0, isActive: document.getElementById('headlines-isActive').checked };
+                try {
+                    const url = isEdit ? API + '/headlines/' + id : API + '/headlines';
+                    const r = await fetch(url, { method: isEdit ? 'PUT' : 'POST', headers: jsonAuth(), body: JSON.stringify(body) });
+                    const d = await r.json();
+                    if (r.ok) { msgEl.textContent = isEdit ? 'Updated!' : 'Created!'; msgEl.className = 'msg msg-ok'; hideForm('headlines'); loadList('headlines'); } else { msgEl.textContent = d.error; msgEl.className = 'msg msg-err'; }
+                } catch (e) { msgEl.textContent = 'Error'; msgEl.className = 'msg msg-err'; }
+                return;
+            } else if (mod === 'members') {
+                fd.append('name', document.getElementById('members-name').value);
+                fd.append('designation', document.getElementById('members-designation').value);
+                fd.append('organization', document.getElementById('members-organization').value);
+                fd.append('committee', document.getElementById('members-committee').value);
+                fd.append('year', document.getElementById('members-year').value);
+                fd.append('order', document.getElementById('members-order').value);
+                fd.append('isActive', document.getElementById('members-isActive').checked);
+                const photo = document.getElementById('members-photo').files[0];
+                if (photo) fd.append('photo', photo);
+            } else if (mod === 'gallery') {
+                fd.append('title', document.getElementById('gallery-title').value);
+                fd.append('category', document.getElementById('gallery-category').value);
+                fd.append('isActive', document.getElementById('gallery-isActive').checked);
+                const cover = document.getElementById('gallery-coverImage').files[0];
+                if (cover) fd.append('coverImage', cover);
+                const imgs = document.getElementById('gallery-images').files;
+                for (let i = 0; i < imgs.length; i++) fd.append('images', imgs[i]);
+            } else if (mod === 'documents') {
+                fd.append('title', document.getElementById('documents-title').value);
+                fd.append('description', document.getElementById('documents-description').value);
+                fd.append('category', document.getElementById('documents-category').value);
+                fd.append('isActive', document.getElementById('documents-isActive').checked);
+                const file = document.getElementById('documents-file').files[0];
+                if (file) fd.append('file', file);
+            } else if (mod === 'awards') {
+                fd.append('title', document.getElementById('awards-title').value);
+                fd.append('awardType', document.getElementById('awards-awardType').value);
+                fd.append('year', document.getElementById('awards-year').value);
+                fd.append('description', document.getElementById('awards-description').value);
+                fd.append('icon', document.getElementById('awards-icon').value);
+                fd.append('isActive', document.getElementById('awards-isActive').checked);
+                const pdf = document.getElementById('awards-pdf').files[0];
+                if (pdf) fd.append('pdf', pdf);
+            }
+
+            try {
+                const url = isEdit ? API + '/' + mod + '/' + id : API + '/' + mod;
+                const r = await fetch(url, { method: isEdit ? 'PUT' : 'POST', headers: authHeaders(), body: fd });
+                const d = await r.json();
+                if (r.ok) { msgEl.textContent = isEdit ? 'Updated!' : 'Created!'; msgEl.className = 'msg msg-ok'; hideForm(mod); loadList(mod); }
+                else { msgEl.textContent = d.error || 'Error saving'; msgEl.className = 'msg msg-err'; }
+            } catch (e) { msgEl.textContent = 'Connection error'; msgEl.className = 'msg msg-err'; }
+        }
+
+        async function delItem(mod, id) {
+            if (!confirm('Delete this item? Cannot be undone.')) return;
+            try {
+                const r = await fetch(API + '/' + mod + '/' + id, { method: 'DELETE', headers: authHeaders() });
+                if (r.ok) loadList(mod); else alert('Delete failed');
+            } catch (e) { alert('Error'); }
+        }
+
+        async function delSubImage(mod, id, idx) {
+            if (!confirm('Delete this image?')) return;
+            try {
+                await fetch(API + '/' + mod + '/' + id + '/images/' + idx, { method: 'DELETE', headers: authHeaders() });
+                editItem(mod, id);
+            } catch (e) { alert('Error'); }
+        }
+
+        /* ───── SETTINGS ───── */
+        async function loadSettings() {
+            try {
+                const r = await fetch(PUB + '/settings');
+                const d = await r.json();
+                ['bannerTitle', 'bannerSubtitle', 'contactEmail', 'contactPhone', 'contactAddress', 'socialFacebook', 'socialTwitter', 'socialLinkedin', 'socialInstagram', 'socialYoutube', 'footerText'].forEach(k => {
+                    const el = document.getElementById('set-' + k);
+                    if (el) el.value = d[k] || '';
+                });
+            } catch (e) { console.error(e); }
+        }
+        async function saveSettings(e) {
+            e.preventDefault();
+            const msgEl = document.getElementById('settings-msg');
+            const body = {};
+            ['bannerTitle', 'bannerSubtitle', 'contactEmail', 'contactPhone', 'contactAddress', 'socialFacebook', 'socialTwitter', 'socialLinkedin', 'socialInstagram', 'socialYoutube', 'footerText'].forEach(k => {
+                body[k] = document.getElementById('set-' + k).value;
+            });
+            try {
+                const r = await fetch(API + '/settings', { method: 'PUT', headers: jsonAuth(), body: JSON.stringify(body) });
+                if (r.ok) { msgEl.innerHTML = '<div class="msg msg-ok">Settings saved!</div>'; } else { msgEl.innerHTML = '<div class="msg msg-err">Error saving</div>'; }
+            } catch (e) { msgEl.innerHTML = '<div class="msg msg-err">Connection error</div>'; }
+        }
+
+        /* ───── PASSWORD ───── */
+        async function changePassword(e) {
+            e.preventDefault();
+            const msgEl = document.getElementById('password-msg');
+            const newP = document.getElementById('pw-new').value;
+            if (newP !== document.getElementById('pw-confirm').value) { msgEl.innerHTML = '<div class="msg msg-err">Passwords don\'t match</div>'; return; }
+            try {
+                const r = await fetch('/api/auth/password', { method: 'PUT', headers: jsonAuth(), body: JSON.stringify({ currentPassword: document.getElementById('pw-current').value, newPassword: newP }) });
+                const d = await r.json();
+                if (r.ok) { msgEl.innerHTML = '<div class="msg msg-ok">Password changed!</div>'; e.target.reset(); }
+                else { msgEl.innerHTML = `<div class="msg msg-err">${d.error}</div>`; }
+            } catch (e) { msgEl.innerHTML = '<div class="msg msg-err">Error</div>'; }
+        }
+
+        checkAuth();
+    </script>
+</body>
+
+</html>

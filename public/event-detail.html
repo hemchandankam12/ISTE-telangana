@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details | ISTE Telangana</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #FF6B35;
+            --bg-white: #FFFFFF;
+            --bg-light: #F5F7FA;
+            --text-primary: #1A1A2E;
+            --text-secondary: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: var(--text-primary);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .notification-bar {
+            background: linear-gradient(90deg, var(--primary), #004080);
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .notification-track {
+            display: flex;
+            width: fit-content;
+            animation: scroll 30s linear infinite;
+        }
+
+        .notification-item {
+            color: white;
+            white-space: nowrap;
+            padding: 0 50px;
+            font-size: 14px;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-white);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--secondary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #001a33 100%);
+            padding: 130px 0 50px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 42px;
+        }
+
+        .page-header p {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        section {
+            padding: 50px 0;
+        }
+
+        .event-detail {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .event-cover {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary), #004080);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 80px;
+        }
+
+        .event-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .event-info-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .event-description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+        }
+
+        .event-description h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 28px;
+        }
+
+        .gallery-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .image-grid img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 36px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            padding: 10px;
+            user-select: none;
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-secondary);
+            font-size: 18px;
+        }
+
+        footer {
+            background: #0a0a0a;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .footer-links h4 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 15px;
+                gap: 12px;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 32px;
+            }
+
+            .event-cover {
+                height: 250px;
+            }
+
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/dark-theme.css">
+</head>
+
+<body>
+    <div class="notification-bar">
+        <div class="notification-track" id="notificationTrack"></div>
+    </div>
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="/index.html" class="logo">
+                    <div class="logo-icon">ISTE</div>
+                    <div class="logo-text">Telangana<span>.</span></div>
+                </a>
+                <nav>
+                    <ul id="nav-menu">
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="/events.html" class="active">Events</a></li>
+                        <li><a href="/committee.html">Committee</a></li>
+                        <li><a href="/awards.html">Awards</a></li>
+                        <li><a href="/gallery.html">Gallery</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-toggle" id="mobile-toggle"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </header>
+    <section class="page-header">
+        <div class="container">
+            <h1 id="eventTitle">Loading...</h1>
+            <p id="eventSubtitle"></p>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="event-detail">
+                <a href="/events.html" class="back-link">← Back to Events</a>
+                <div id="eventContent" class="loading">Loading event details...</div>
+            </div>
+        </div>
+    </section>
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <span class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">‹</span>
+        <img id="lightboxImg" src="" alt="">
+        <span class="lightbox-nav lightbox-next" onclick="navLightbox(1)">›</span>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="/events.html">Events</a></li>
+                        <li><a href="/committee.html">Committee</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>More</h4>
+                    <ul>
+                        <li><a href="/awards.html">Awards</a></li>
+                        <li><a href="/gallery.html">Gallery</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:istetelangana@gmail.com">Email</a></li>
+                        <li><a href="tel:+919876543210">+91 98765 43210</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 ISTE Telangana. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        let allImages = [];
+        let currentIndex = 0;
+
+        async function loadEvent() {
+            const params = new URLSearchParams(window.location.search);
+            const eventId = params.get('id');
+            if (!eventId) { document.getElementById('eventContent').innerHTML = '<p>Event not found.</p>'; return; }
+            try {
+                const res = await fetch('/api/public/events/' + eventId);
+                if (!res.ok) { document.getElementById('eventContent').innerHTML = '<p>Event not found.</p>'; return; }
+                const ev = await res.json();
+                document.getElementById('eventTitle').textContent = ev.title;
+                document.getElementById('eventSubtitle').textContent = ev.category + ' • ' + formatDate(ev.eventDate);
+                document.title = ev.title + ' | ISTE Telangana';
+
+                let html = '';
+                if (ev.coverImage) {
+                    html += `<div class="event-cover"><img src="${ev.coverImage}" alt="${ev.title}"></div>`;
+                }
+                html += `<div class="event-info">
+                    <div class="event-info-item">📅 ${formatDate(ev.eventDate)}</div>
+                    <div class="event-info-item">📍 ${ev.location}</div>
+                    <div class="event-info-item">📂 ${ev.category || 'Event'}</div>
+                </div>`;
+                html += `<div class="event-description"><h2>About This Event</h2><p>${ev.description}</p></div>`;
+                if (ev.images && ev.images.length > 0) {
+                    allImages = ev.images;
+                    html += `<div class="gallery-section"><h2>Event Gallery</h2><div class="image-grid">`;
+                    html += ev.images.map((img, i) =>
+                        `<img src="${img}" alt="Event image" onclick="openLightbox(${i})">`
+                    ).join('');
+                    html += `</div></div>`;
+                }
+                document.getElementById('eventContent').innerHTML = html;
+            } catch (err) {
+                document.getElementById('eventContent').innerHTML = '<p>Error loading event.</p>';
+            }
+        }
+
+        function formatDate(dateStr) {
+            return new Date(dateStr).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+        }
+
+        function openLightbox(index) {
+            currentIndex = index;
+            document.getElementById('lightboxImg').src = allImages[index];
+            document.getElementById('lightbox').classList.add('active');
+        }
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+        function navLightbox(dir) {
+            currentIndex = (currentIndex + dir + allImages.length) % allImages.length;
+            document.getElementById('lightboxImg').src = allImages[currentIndex];
+        }
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('lightbox')) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navLightbox(-1);
+            if (e.key === 'ArrowRight') navLightbox(1);
+        });
+
+        document.getElementById('mobile-toggle').addEventListener('click', () => {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+
+        loadEvent();
+    </script>
+    <script src="/js/dynamic.js"></script>
+</body>
+
+</html>

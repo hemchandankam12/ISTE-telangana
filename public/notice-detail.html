@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice | ISTE Telangana</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #FF6B35;
+            --bg-white: #FFFFFF;
+            --bg-light: #F5F7FA;
+            --text-primary: #1A1A2E;
+            --text-secondary: #666666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', sans-serif;
+            color: var(--text-primary);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .notification-bar {
+            background: linear-gradient(90deg, var(--primary), #004080);
+            padding: 10px 0;
+            overflow: hidden;
+        }
+
+        .notification-track {
+            display: flex;
+            width: fit-content;
+            animation: scroll 30s linear infinite;
+        }
+
+        .notification-item {
+            color: white;
+            white-space: nowrap;
+            padding: 0 50px;
+            font-size: 14px;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-white);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .page-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #001a33 100%);
+            padding: 130px 0 50px;
+            text-align: center;
+            color: white;
+        }
+
+        .page-header h1 {
+            font-size: 36px;
+        }
+
+        .page-header p {
+            font-size: 15px;
+            opacity: 0.8;
+            margin-top: 8px;
+        }
+
+        section {
+            padding: 50px 0;
+        }
+
+        .notice-detail {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .notice-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .notice-body {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            white-space: pre-wrap;
+        }
+
+        .pdf-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            margin-top: 25px;
+            transition: background 0.3s;
+        }
+
+        .pdf-download:hover {
+            background: var(--secondary);
+        }
+
+        footer {
+            background: #0a0a0a;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+
+        .footer-links h4 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 15px;
+                gap: 12px;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .page-header h1 {
+                font-size: 28px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="/css/dark-theme.css">
+</head>
+
+<body>
+    <div class="notification-bar">
+        <div class="notification-track" id="notificationTrack"></div>
+    </div>
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <a href="/index.html" class="logo">
+                    <div class="logo-icon">ISTE</div>
+                    <div class="logo-text">Telangana<span>.</span></div>
+                </a>
+                <nav>
+                    <ul id="nav-menu">
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="/events.html">Events</a></li>
+                        <li><a href="/committee.html">Committee</a></li>
+                        <li><a href="/awards.html">Awards</a></li>
+                        <li><a href="/gallery.html">Gallery</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-toggle" id="mobile-toggle"><span></span><span></span><span></span></div>
+            </div>
+        </div>
+    </header>
+    <section class="page-header">
+        <div class="container">
+            <h1 id="noticeTitle">Loading...</h1>
+            <p id="noticeDate"></p>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="notice-detail">
+                <a href="/notices" class="back-link">← Back to Notices</a>
+                <div id="noticeContent">
+                    <p style="text-align:center;color:#666;">Loading...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/index.html">Home</a></li>
+                        <li><a href="/about.html">About</a></li>
+                        <li><a href="/events.html">Events</a></li>
+                        <li><a href="/committee.html">Committee</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>More</h4>
+                    <ul>
+                        <li><a href="/awards.html">Awards</a></li>
+                        <li><a href="/gallery.html">Gallery</a></li>
+                        <li><a href="/contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:istetelangana@gmail.com">Email</a></li>
+                        <li><a href="tel:+919876543210">+91 98765 43210</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 ISTE Telangana. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        async function loadNotice() {
+            const id = window.location.pathname.split('/').pop();
+            try {
+                const res = await fetch('/api/notices/' + id);
+                if (!res.ok) { document.getElementById('noticeContent').innerHTML = '<p>Notice not found.</p>'; return; }
+                const n = await res.json();
+                document.getElementById('noticeTitle').textContent = n.title;
+                document.title = n.title + ' | ISTE Telangana';
+                document.getElementById('noticeDate').textContent = 'Published: ' + new Date(n.publishDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+                let html = `<div class="notice-body">${n.description}</div>`;
+                if (n.pdfPath) {
+                    html += `<a href="${n.pdfPath}" target="_blank" class="pdf-download">📄 Download PDF</a>`;
+                }
+                document.getElementById('noticeContent').innerHTML = html;
+            } catch (err) {
+                document.getElementById('noticeContent').innerHTML = '<p>Error loading notice.</p>';
+            }
+        }
+        document.getElementById('mobile-toggle').addEventListener('click', () => {
+            document.getElementById('nav-menu').classList.toggle('active');
+        });
+        loadNotice();
+    </script>
+    <script src="/js/dynamic.js"></script>
+</body>
+
+</html>

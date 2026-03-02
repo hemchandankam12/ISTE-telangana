@@ -1,0 +1,9 @@
+FROM node:18-alpine
+WORKDIR /app
+COPY package.json package-lock.json* ./
+RUN npm install --production
+COPY backend/ ./backend/
+COPY public/ ./public/
+RUN mkdir -p uploads/events uploads/notices uploads/members uploads/gallery uploads/documents uploads/awards
+EXPOSE 3000
+CMD ["node", "backend/publicServer.js"]
