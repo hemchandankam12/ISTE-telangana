@@ -271,6 +271,37 @@
         return path.includes(name + '.html');
     }
 
+    // Awards on index.html
+    async function loadHomeAwards() {
+        const grid = document.getElementById('home-awards-grid');
+        if (!grid || !isPage('index')) return;
+        try {
+            const r = await fetch(API + '/awards');
+            let awards = await r.json();
+            if (awards.length > 0) {
+                // Show latest 4 awards
+                awards = awards.slice(0, 4);
+                grid.innerHTML = awards.map(a => {
+                    const hasFile = a.pdfPath ? true : false;
+                    const tag = hasFile ? '<span class="award-pdf-badge" style="font-size:11px;background:var(--secondary);color:white;padding:2px 6px;border-radius:4px;margin-left:8px;">PDF</span>' : '';
+                    const click = hasFile ? `onclick="window.open('${a.pdfPath}','_blank')"` : '';
+                    return `<div class="award-card" ${click} style="cursor:${hasFile ? 'pointer' : 'default'}">
+                        <div class="award-icon">${a.icon || '🏆'}</div>
+                        <div class="award-content">
+                            <h3>${a.title}${tag}</h3>
+                            <p>${a.description}</p>
+                            <div class="award-year">${a.year}</div>
+                        </div>
+                    </div>`;
+                }).join('');
+            } else {
+                grid.innerHTML = '<p class="empty-msg">No recent awards.</p>';
+            }
+        } catch (e) {
+            grid.innerHTML = '<p class="empty-msg">Could not load awards.</p>';
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         loadHeadlines();
         loadHomeEvents();
@@ -278,6 +309,7 @@
         loadHomeMembers();
         loadCommitteePage();
         loadAwardsPage();
+        loadHomeAwards();
         loadGalleryPage();
         loadHomeNotices();
         loadSiteSettings();
