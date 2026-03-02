@@ -503,12 +503,19 @@ a {
     gap: 30px;
 }
 
+.contact-info {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
 .contact-item {
     background: transparent !important;
     border: none !important;
     border-radius: 0;
     color: #e6edf3 !important;
     padding: 0 !important;
+    box-shadow: none !important;
 }
 
 .contact-item h3 {
@@ -527,6 +534,7 @@ a {
     background: transparent !important;
     border: none !important;
     padding: 0 !important;
+    box-shadow: none !important;
 }
 
 .form-group label {
