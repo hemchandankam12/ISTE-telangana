@@ -332,36 +332,55 @@ section {
 /* Footer */
 footer {
     background: #010409 !important;
-    border-top: 1px solid #30363d;
+    border-top: 1px solid #30363d !important;
+    padding: 60px 0 30px !important;
 }
 
 .footer-about p {
     color: #8b949e !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
 }
 
 .footer-links a {
     color: #8b949e !important;
+    font-size: 15px !important;
+    transition: color 0.3s ease !important;
 }
 
 .footer-links a:hover {
-    color: #f0883e !important;
+    color: #58a6ff !important;
 }
 
 .footer-links h4 {
     color: #e6edf3 !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    margin-bottom: 20px !important;
 }
 
 .footer-bottom {
-    border-top-color: #30363d !important;
-    color: #484f58 !important;
+    border-top: 1px solid #30363d !important;
+    color: #8b949e !important;
+    font-size: 14px !important;
+    padding-top: 25px !important;
+    margin-top: 20px !important;
 }
 
 .footer-social a {
-    background: rgba(255, 255, 255, 0.06) !important;
+    background: #161b22 !important;
+    border: 1px solid #30363d !important;
+    color: #c9d1d9 !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 14px !important;
+    transition: all 0.3s ease !important;
 }
 
 .footer-social a:hover {
-    background: #f0883e !important;
+    background: #003366 !important;
+    border-color: #003366 !important;
+    color: white !important;
 }
 
 /* Buttons */
@@ -485,25 +504,29 @@ a {
 }
 
 .contact-item {
-    background: #161b22 !important;
-    border: 1px solid #30363d !important;
-    border-radius: 12px;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0;
     color: #e6edf3 !important;
+    padding: 0 !important;
 }
 
 .contact-item h3 {
     color: #e6edf3 !important;
+    font-size: 20px !important;
+    margin-bottom: 20px !important;
 }
 
 .contact-item p,
 .contact-item a {
     color: #8b949e !important;
+    font-size: 15px !important;
 }
 
 .contact-form {
-    background: #161b22 !important;
-    border: 1px solid #30363d !important;
-    border-radius: 12px;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
 }
 
 .form-group label {
